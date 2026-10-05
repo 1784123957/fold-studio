@@ -11,7 +11,15 @@
 
 ## 本机启动
 
-在 `E:\gtpmp` 打开 PowerShell：
+将仓库克隆到任意本地目录后，在项目根目录（包含 `README.md`、`scripts/`、`frontend/` 和 `backend/` 的目录）打开 PowerShell。以下安装、启动和停止命令均在项目根目录执行；脚本会自动定位项目路径，无需固定盘符或目录名。
+
+首次运行需要 Node.js 22.12+、Python 3.10+、网络和 MySQL 所需的 Microsoft Visual C++ 运行库。先安装依赖并初始化数据库，安装完成后会自动启动项目：
+
+```powershell
+.\scripts\install.ps1 -Python 'python'
+```
+
+后续启动：
 
 ```powershell
 .\scripts\start.ps1
@@ -21,12 +29,6 @@
 - API 文档：http://127.0.0.1:8000/docs
 - 健康检查：http://127.0.0.1:8000/api/health
 - MySQL：`127.0.0.1:3307`，数据库 `fold_studio`，应用账号 `fold_app`
-
-首次部署到其他 Windows 电脑需要 Node.js 22.12+、Python 3.10+、网络和 MySQL 所需的 Microsoft Visual C++ 运行库：
-
-```powershell
-.\scripts\install.ps1 -Python 'python'
-```
 
 脚本下载官方 MySQL ZIP，在项目内初始化实例；无需 Docker 或注册 Windows 服务。安装时生成随机密码，应用连接串写入 `backend/.env`，管理凭据写入 `.runtime/mysql-credentials.json`，不要提交或公开这两个文件。数据库只监听本机回环地址；初始化空密码状态仅用于首次创建随机密码，初始化失败时请停止实例并检查日志后重试。
 
